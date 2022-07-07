@@ -14,7 +14,7 @@ Your app must:
 
 * **Have at** _**least**_ **2 models** \(more if they make sense\) that represents the main functional idea for your app.
   * Note: If your app idea doesn't really call for more models, let your instructors know and they can suggest ideas for other sufficiently difficult replacements for this requirement.
-* **Incorporate at least one API.** List of examples here: \(Public API List\)\[[https://github.com/public-apis/public-apis](https://github.com/public-apis/public-apis)\]. 
+* **Incorporate at least one API, OR seed your Database** List of examples here: \(Public API List\)\[[https://github.com/public-apis/public-apis](https://github.com/public-apis/public-apis)\]. If you use one of the APIs we've used in class(such as the weather API) you must use an additional API or seeded data(at least 10 documents).
 * **Have complete RESTful routes** for at least one of your resources with GET, POST, PUT, and DELETE
 * **Utilize an ODM to create a database table structure** and interact with your MongoDb-stored data
 * **Include a readme file** that explains how to use your app and contains a route table for your RESTful routes
@@ -43,7 +43,7 @@ Your app must:
 
 ## Useful Resources
 
-* [**Writing Good User Stories**](http://www.mariaemerson.com/user-stories/) _\(for a few user story tips\)_
+* [**Writing Great User Stories**](https://techdocs.broadcom.com/us/en/ca-enterprise-software/agile-development-and-management/rally-platform-ca-agile-central/rally/learning-agile/agile-practices/write-a-great-user-story.html) _\(for user story tips\)_
 * [**Presenting Information Architecture**](http://webstyleguide.com/wsg3/3-information-architecture/4-presenting-information.html) _\(for more insight into wireframing\)_
 
 ## Project Feedback + Evaluation
@@ -60,6 +60,6 @@ Your app must:
 | **0** | _Incomplete._ |
 | **1** | _Does not meet expectations._ |
 | **2** | _Meets expectations, good job!_ |
-| **3** | _Exceeds expectations, you wonderful creature, you!_ |
+| **3** | _Exceeds expectations, you made an awesome product!_ |
 
 This will serve as a helpful overall gauge of whether you met the project goals, but **the more important scores are the individual ones** above, which can help you identify where to focus your efforts for the next project!
