@@ -10,63 +10,48 @@ User stories ('As a user...')
   - display single item searched for
   - Save single calendar item to personal folder
 
-- Personal folder - View all items - Saved
+- Personal calendar - View all items - Saved
   - look for all items in personal folder
   - display all items in personal folder
 
-- Personal folder - Create new entry - New
+- Personal calendar - Create new entry - New
   - new schemas (different schemas depending on event type)
   - create the different models to use
 
-- Personal folder - Edit a single entry - Edit
+- Personal calendar - Edit a single entry - Edit
   - look for a single entry
   - edit that entry
   - get back the updated version
 
-- Personal folder - Delete single entry - Delete
+- Personal calendar - Delete single entry - Delete
   - look for a single entry
   - remove entry from db
   - display confirmation
 
 
 Schemas
-- Candle lighting
+- Event entry
+  - Category: string
   - title: String / time
   - time: date / time
   - memo: string
   - hebrew: string
-
-- Havdala
-  - title: string / time
-  - time: date / time
-  - hebrew: string
-
-- New month
-  - title: String
-  - date: date
-  - Hebrew date: string
-  - hebrew: string
-  - memo: string
-
-- Holidays
-  - title: string
-  - date: string
   - hebrew date: string
-  - yomtov: Boolean
-  - hebrew: string
-  - memo: string
+  - yomtov: boolean
+  - owner
 
-- Fasts - beginning and ending
-  - Title: string
-  - Date: string
-  - hebrew: string
-  - memo: string
+- Personal Calendar
+  - Name: string
+  - Description: string
+  - Events: Array of strings by 
+  - owner
+
 
 Route table:
 Name:    |Path:        |HTTP Verb |Purpose
 Index    |/cal         |GET       |Display all info from API
 Show     |/cal/:id     |GET       |Display single item
-Save     |/cal/save    |GET       |Save single item to personal folder
+Save     |/cal/save    |GET       |Save single item to personal calendar
 New      |/cal/new     |GET       |Displays a form to add a new entry
 Create   |/cal         |POST      |Create the new entry in the DB
 Edit     |/cal/:id/edit|GET       |Show edit item form
