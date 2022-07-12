@@ -47,10 +47,21 @@ Schemas
   - owner
 
 
+![](route_table.png)
+
+![](wire%20frames.png)
+
+
+
+
+
+
+
 Route table:
 Name:    |Path:        |HTTP Verb |Purpose
 Index    |/cal         |GET       |Display all info from API
 Show     |/cal/:id     |GET       |Display single item
+Show     |/cal/personal|GET       |Display personal calendar
 Save     |/cal/save    |GET       |Save single item to personal calendar
 New      |/cal/new     |GET       |Displays a form to add a new entry
 Create   |/cal         |POST      |Create the new entry in the DB
