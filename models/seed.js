@@ -29,7 +29,7 @@ db.on('open', () => {
         // console.log('data here-->', data)
         console.log(APIdata)
         //when we seed data, we usualy clear the db first
-        Event.remove({})
+        Event.deleteMany({})
         //then we create the data
             .then(deletedEvents => {
                 console.log('this is what remove returns', deletedEvents)
@@ -37,7 +37,7 @@ db.on('open', () => {
                 //now that our delete was succesfull, we can create our fruits
                 Event.create(APIdata)
                     .then(data => {
-                        console.log('the new fruits', data)
+                        console.log('New data', data)
                         db.close()
                     })
                     .catch(error => {
