@@ -49,6 +49,7 @@ router.get('/:id', (req, res) => {
         .then(data => {
             // const userId = req.session.userId
             // const username = req.session.username
+            console.log(data)
             res.render('show', {data}) //, userId, username
         })
         .catch(err => {

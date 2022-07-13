@@ -5,12 +5,13 @@ const mongoose = require('./connection')
 const { Schema, model } = mongoose
 
 
-const eventSchema = new mongoose.Schema({ //todo - why doesnt it work without mongoose
-    category: String,
+const eventSchema = new Schema({
     title: String,
-    time: String,
-    memo: String,
+    date: String,
+    hdate: String,
+    category: String,
     hebrew: String,
+    memo: String,
     yomtov: {
         type: Boolean,
         required: false
@@ -24,6 +25,6 @@ const eventSchema = new mongoose.Schema({ //todo - why doesnt it work without mo
     timestamps: true
 })
 
-const Event = mongoose.model('Event', eventSchema)//todo - why doesnt it work without mongoose
+const Event = model('Event', eventSchema)
 
 module.exports = Event
