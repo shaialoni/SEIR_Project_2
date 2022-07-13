@@ -1,9 +1,11 @@
 const mongoose = require('./connection')
-const calSchema = require('./cal')
+//const mongoose = require('mongoose')
+// const calSchema = require('./cal')
 
-const {Schema, model} = mongoose
+const { Schema, model } = mongoose
 
-const eventSchema = new Schema({
+
+const eventSchema = new mongoose.Schema({ //todo - why doesnt it work without mongoose
     category: String,
     title: String,
     time: String,
@@ -12,16 +14,16 @@ const eventSchema = new Schema({
     yomtov: {
         type: Boolean,
         required: false
-    },
-    owner: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'   
-    },
-    comments: [commentSchema]
+    }
+    // owner: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'User'   
+    // },
+    //comments: [commentSchema]
 }, {
     timestamps: true
 })
 
-const event = model('Event', eventSchema)
+const Event = mongoose.model('Event', eventSchema)//todo - why doesnt it work without mongoose
 
 module.exports = Event

@@ -12,7 +12,8 @@
     "node-fetch": "^2.6.7"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "seed": "node models/seed.js"
   },
   "name": "project_2",
   "description": "## Overview",

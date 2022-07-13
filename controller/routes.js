@@ -8,26 +8,41 @@ const router = express.Router()
 ////////////////////////////////////
 // List our routes
 ////////////////////////////////////
+const Event = require('../models/event')
 //Main page route
 router.get('/', (req, res) => {
-    const APIrequestUrl = `https://www.hebcal.com/hebcal?v=1&cfg=json&maj=on&min=on&mod=on&nx=on&start=2023-01-01&end=2023-12-31&month=x&ss=on&mf=off&c=on&geo=geoname&zip=94520&M=on&s=on`
-    
+    //const APIrequestUrl = process.env.APIURL
+
     //send the fetch request to the HebCal API
-   fetch(APIrequestUrl)
-    .then(res => res.json())
-    .then(data => {
-        console.log('data here-->', data)
-        res.render('index', {data})
+//    fetch(APIrequestUrl)
+//     .then(res => res.json())
+//     .then(data => {
+//         console.log('data here-->', data)
+//         res.render('index', {data})
            
-    })
-    .catch(err => console.log(err.json())) 
+//     })
+//     .catch(err => console.log(err.json())) 
 
 })
 
 //POST route 
-router.post('/', (req, res) => {
+// router.post('/', (req, res) => {
     
        
-})
+// })
 
+//SHOW Route
+router.get('/:id', (req, res) => {
+    const {id} = req.params
+
+    Event.findById(id)
+        .then(event => {
+            const userId = req.session.userId
+            const username = req.session.username
+            res.render('show', event, userId, username)
+        })
+        .catch(err => {
+            res.json(console.log(err))
+        })
+})
 module.exports = router
