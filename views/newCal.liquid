@@ -1,0 +1,31 @@
+{% layout 'layout.liquid' %}
+{% block content %}
+<div class="container-md">
+
+    <form action="/cal/personal/new" method="POST">
+        <fieldset>
+            <legend>Create a personal cal</legend>
+            <label class="form-label">Name:</label>
+            <input 
+                class="form-control" 
+                type="text" 
+                name="name" 
+                placeholder="enter name"
+            >
+            <label class=form-label>Description:</label>
+            <input 
+                class="form-control" 
+                type="text" 
+                name="description" 
+                placeholder="color"
+            >   
+        </fieldset>
+        <input 
+            type="submit" 
+            value="Create New Calendar" 
+            class="btn btn-success"
+        >
+    </form>
+
+</div>
+{% endblock %}
