@@ -5,9 +5,10 @@
 ////////////////////////////////////
 //Import Dependencies
 ////////////////////////////////////
-const mongoose = require('mongoose')
+const mongoose = require('./connection')
 const Event = require('./event')
 const fetch = require('node-fetch')
+const PersonalCal = require('./personalCal')
 
 ////////////////////////////////////
 //Seed Code
@@ -44,12 +45,14 @@ db.on('open', () => {
                         console.log('error', error)
                         db.close()
                     })
-            })
+                })
             .catch(error => {
                 console.log('error', error)
                 db.close()
             })
              // whether it's succesful or not we want to close our db connection
         })
+
+       
     .catch(err => console.log(err.json())) 
 })

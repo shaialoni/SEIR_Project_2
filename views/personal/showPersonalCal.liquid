@@ -1,0 +1,20 @@
+{% layout 'layout.liquid' %}
+
+{% block content %}
+{% for data in data %}
+<div class="card-body">
+    <div class="card" style="width: 18rem">
+        <h2 class="card-header"><a href="/personal/{{data._id}}">{{data.name}}</a></h2>
+                <p class="card-text">Description: {{data.description}}</p>
+            </div>
+            <div class="btn-group">
+                <form action="/personal/{{data._id}}?_method=DELETE" method="POST">
+                    
+                    <a href="/cal" class="btn btn-primary">Back to main page</a>
+                    <input type="submit" value="DELETE CALENDAR" class="btn btn-danger">
+            </div>
+        </div>
+{% endfor %}
+
+              
+{% endblock %}

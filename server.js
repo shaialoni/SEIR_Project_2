@@ -9,6 +9,7 @@ const methodOverride = require('method-override')
 const eventRoutes = require('./controller/event_routes')
 const userRoutes = require('./controller/user_routes')
 const commentRoutes = require('./controller/comment_routes')
+const personalCalRoutes = require('./controller/personalCal_routes')
 
 ////////////////////////////////////////////
 // Create our express application object
@@ -45,6 +46,7 @@ app.use(
 ////////////////////////////////////////////
 app.use('/cal', eventRoutes)
 app.use('/users', userRoutes)
+app.use('/personal', personalCalRoutes)
 
 //localhost:3000/
 app.get('/', (req, res) => {

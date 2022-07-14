@@ -1,6 +1,5 @@
 const mongoose = require('./connection')
-//const mongoose = require('mongoose')
-// const calSchema = require('./cal')
+const calSchema = require('./personalCal')
 
 const { Schema, model } = mongoose
 
@@ -15,11 +14,11 @@ const eventSchema = new Schema({
     yomtov: {
         type: Boolean,
         required: false
-    }
-    // owner: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'User'   
-    // },
+    },
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'   
+    },
     //comments: [commentSchema]
 }, {
     timestamps: true
