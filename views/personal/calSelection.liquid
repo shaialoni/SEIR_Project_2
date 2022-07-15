@@ -1,0 +1,22 @@
+{% layout 'layout.liquid' %}
+
+{% block content %}
+<div class="card-body">
+    <h3>Select which calendar you would like to add the event to:</h3>
+    {% for data in data %}
+    <div class="card" style="width: 18rem">
+        <h2 class="card-header"><a href="/personal/add/{{data._id}}/{{eventId}}">{{data.name}}</a></h2>
+                <p class="card-text">Description: {{data.description}}</p>
+                <p>calID {{data._id}}</p>
+                <p>eventID {{eventId}}</p>
+            </div>   
+        </div>
+    {% endfor %}
+    <div class="btn-group">
+        <a href="/cal" class="btn btn-primary">Back to main page</a>
+</div>
+</div>
+            
+{% endblock %}
+
+<!-- THIS SHOWS ALL PERSONAL CALENDARS -->

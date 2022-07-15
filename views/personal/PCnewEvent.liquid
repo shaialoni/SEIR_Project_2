@@ -1,0 +1,81 @@
+{% layout 'layout.liquid' %}
+
+{% block content %}
+<div class="container-md">
+    <form action="/personal/newEvent/{{calId}}/{{eventId}}" method="POST">
+        <fieldset>
+            <legend>Create event</legend>
+            <!-- <label class="form-label">ID:</label>
+            <input 
+                type="text" 
+                name="_id" 
+                placeholder="enter ID" 
+                value="{{event._id}}"
+                class="form-control"
+            > -->
+            <label class="form-label">Title:</label>
+            <input 
+                type="text" 
+                name="title" 
+                placeholder="enter title" 
+                value="{{event.title}}"
+                class="form-control"
+            >
+            <label class="form-label">Date:</label>
+            <input 
+                type="text" 
+                name="date" 
+                placeholder="enter date" 
+                value="{{event.date}}"
+                class="form-control"
+            >
+            <label class="form-label">Hebrew date:</label>
+            <input 
+                type="text" 
+                name="hdate" 
+                placeholder="enter hebrew date" 
+                value="{{event.hdate}}"
+                class="form-control"
+            >
+            <label class="form-label">Category:</label>
+            <input 
+                type="text" 
+                name="category" 
+                placeholder="enter category" 
+                value="{{event.category}}"
+                class="form-control"
+            >
+            <label class="form-label">Hebrew name:</label>
+            <input 
+                type="text" 
+                name="hebrew" 
+                placeholder="enter hebrew name" 
+                value="{{event.hebrew}}"
+                class="form-control"
+            >
+            <label class="form-label">memo:</label>
+            <input 
+                type="memo" 
+                name="memo" 
+                placeholder="enter memo" 
+                value="{{event.memo}}"
+                class="form-control"
+            >
+            <label class="form-label">Yomtov:</label>
+            <input 
+                type="checkbox" 
+                name="yomtov" 
+                class="form-check-input"
+            >
+        </fieldset>
+        <div class="btn-group">
+            <input 
+                type="submit" 
+                value="CREATE EVENT"
+                class="btn btn-success"
+            >
+        </div>
+        <a href="/personal/{{calId}}" class="btn btn-warning">Nevermind</a>
+    </form> 
+</div>
+{% endblock %}
