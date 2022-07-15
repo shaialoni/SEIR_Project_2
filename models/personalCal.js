@@ -9,6 +9,7 @@ const calSchema = new Schema({
     events: [],
     owner: {
         type: Schema.Types.ObjectId,
+        required: true,
         ref: 'User'   
     },
     //comments: [commentSchema]
@@ -16,7 +17,7 @@ const calSchema = new Schema({
     timestamps: true
 })
 
-const PersonalCal = model('PerdsonalCal', calSchema)
+const PersonalCal = model('PersonalCal', calSchema)
 
 module.exports = PersonalCal
 

@@ -1,19 +1,20 @@
 {% layout 'layout.liquid' %}
 
 {% block content %}
-
-    <h2 class="card-header">{{data.title}}</h2>
+<h1>calId{{calId}}</h1>
+<h1>eventId{{item._id}}</h1>
+    <h2 class="card-header">{{item.title}}</h2>
         <div class="card-body">
             <div class="card" style="width: 18rem">
-                <p class="card-text">Category: {{data.category}}</p>
-                <p class="card-text">Date: {{data.date}}</p>
-                <p class="card-text">Heb Date: {{data.hdate}}</p>
+                <p class="card-text">Category: {{item.category}}</p>
+                <p class="card-text">Date: {{item.date}}</p>
+                <p class="card-text">Heb Date: {{item.hdate}}</p>
 
-                <p class="card-text">Memo: {{data.memo}}</p>
-                <p class="card-text">Hebrew: {{data.hebrew}}</p>
+                <p class="card-text">Memo: {{item.memo}}</p>
+                <p class="card-text">Hebrew: {{item.hebrew}}</p>
                 
                 <p class="card-text">Yomtov: 
-                    {% if data.yomtov %} 
+                    {% if item.yomtov %} 
                     Yes 
                     {% else %} 
                     No 
@@ -21,12 +22,13 @@
                 </p>
             </div>
             <div class="btn-group">
-                <form action="/personal{{data}}?_method=DELETE" method="POST">
-                    
-                    <a href="/cal" class="btn btn-primary">Back to main page</a> 
-                    <a href="/personal{{event._id}}/edit" class="btn btn-primary">Edit Event</a>
-                    <input type="submit" value="DELETE" class="btn btn-danger">                
-                    <a href="/personal/add/{{data._id}}" class="btn btn-success">Add to Personal Calendar</a>
+                <a href="/personal/{{calId}}" class="btn btn-primary">Back to calendar's main page</a> 
+                <a href="/personal/{{calId}}/{{item._id}}/edit" class="btn btn-primary">Edit Event</a>
+            </div>
+            <div class="btn-group">
+                <form action="/personal/show/{{calId}}/{{item._id}}?_method=DELETE" method="POST">
+                    <input type="submit" value="DELETE" class="btn btn-danger">                     
+                </form>
             </div>
         </div>
 

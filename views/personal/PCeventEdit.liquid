@@ -1,0 +1,107 @@
+{% layout 'layout.liquid' %}
+
+{% block content %}
+<p>calId{{calId}}</p>
+<p>event id{{eventId}}</p>
+
+<div class="container-md">
+    <form action="/personal/{{calId}}/{{eventId}}?_method=PUT" method="POST">
+        <fieldset>
+            <legend>Edit event: {{event.title}}</legend>
+            <label class="form-label">ID:</label>
+            <input 
+                type="text" 
+                name="_id" 
+                placeholder="enter ID" 
+                value="{{event._id}}"
+                class="form-control"
+            >
+            <label class="form-label">Title:</label>
+            <input 
+                type="text" 
+                name="title" 
+                placeholder="enter title" 
+                value="{{event.title}}"
+                class="form-control"
+            >
+            <label class="form-label">Date:</label>
+            <input 
+                type="text" 
+                name="date" 
+                placeholder="enter date" 
+                value="{{event.date}}"
+                class="form-control"
+            >
+            <label class="form-label">Hebrew date:</label>
+            <input 
+                type="text" 
+                name="hdate" 
+                placeholder="enter hebrew date" 
+                value="{{event.hdate}}"
+                class="form-control"
+            >
+            <label class="form-label">Category:</label>
+            <input 
+                type="text" 
+                name="category" 
+                placeholder="enter category" 
+                value="{{event.category}}"
+                class="form-control"
+            >
+            <label class="form-label">Hebrew name:</label>
+            <input 
+                type="text" 
+                name="hebrew" 
+                placeholder="enter hebrew name" 
+                value="{{event.hebrew}}"
+                class="form-control"
+            >
+            <label class="form-label">memo:</label>
+            <input 
+                type="memo" 
+                name="memo" 
+                placeholder="enter memo" 
+                value="{{event.memo}}"
+                class="form-control"
+            >
+            <label class="form-label">Yomtov:</label>
+            <input 
+                type="checkbox" 
+                name="yomtov" 
+                class="form-check-input"
+                {% if event.yomtov %} 
+                    checked 
+                {% endif %}
+            >
+        </fieldset>
+        <div class="btn-group">
+            <input 
+                type="submit" 
+                value="Edit {{event.title}}"
+                class="btn btn-success"
+            >
+        </div>
+        <a href="/personal/{{calId}}" class="btn btn-warning">Nevermind</a>
+    </form> 
+</div>
+{% endblock %}
+<!-- 
+title": "Pesach I",
+"date": "2023-04-06",
+"hdate": "15 Nisan 5783",
+"category": "holiday",
+"subcat": "major",
+"yomtov": true,
+"hebrew": "פסח א׳",
+"leyning": {
+"1": "Exodus 12:21-12:24",
+"2": "Exodus 12:25-12:28",
+"3": "Exodus 12:29-12:36",
+"4": "Exodus 12:37-12:42",
+"5": "Exodus 12:43-12:51",
+"torah": "Exodus 12:21-51; Numbers 28:16-25",
+"haftarah": "Joshua 5:2-6:1",
+"maftir": "Numbers 28:16-28:25"
+},
+"link": "https://hebcal.com/h/pesach-2023?us=js&um=api",
+"memo": "Passover, the F -->
