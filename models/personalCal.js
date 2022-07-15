@@ -1,12 +1,12 @@
 const mongoose = require('./connection')
-
+const eventSchema = require('./event.js')
 const { Schema, model } = mongoose
 
 
 const calSchema = new Schema({
     name: String,
     description: String,
-    events: [],
+    events: [eventSchema],
     owner: {
         type: Schema.Types.ObjectId,
         required: true,

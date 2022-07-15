@@ -1,21 +1,19 @@
 {% layout 'layout.liquid' %}
 
 {% block content %}
-<p>calId{{calId}}</p>
-<p>event id{{eventId}}</p>
-
 <div class="container-md">
     <form action="/personal/{{calId}}/{{eventId}}?_method=PUT" method="POST">
         <fieldset>
             <legend>Edit event: {{event.title}}</legend>
-            <label class="form-label">ID:</label>
+            <!-- <label class="form-label" display="none">ID:</label>
             <input 
                 type="text" 
                 name="_id" 
                 placeholder="enter ID" 
                 value="{{event._id}}"
                 class="form-control"
-            >
+                display="none"
+            > -->
             <label class="form-label">Title:</label>
             <input 
                 type="text" 
@@ -85,23 +83,3 @@
     </form> 
 </div>
 {% endblock %}
-<!-- 
-title": "Pesach I",
-"date": "2023-04-06",
-"hdate": "15 Nisan 5783",
-"category": "holiday",
-"subcat": "major",
-"yomtov": true,
-"hebrew": "פסח א׳",
-"leyning": {
-"1": "Exodus 12:21-12:24",
-"2": "Exodus 12:25-12:28",
-"3": "Exodus 12:29-12:36",
-"4": "Exodus 12:37-12:42",
-"5": "Exodus 12:43-12:51",
-"torah": "Exodus 12:21-51; Numbers 28:16-25",
-"haftarah": "Joshua 5:2-6:1",
-"maftir": "Numbers 28:16-28:25"
-},
-"link": "https://hebcal.com/h/pesach-2023?us=js&um=api",
-"memo": "Passover, the F -->

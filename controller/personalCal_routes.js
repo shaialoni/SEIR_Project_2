@@ -16,9 +16,7 @@ const PersonalCal = require('../models/personalCal')
 //DESTROY route 
 router.delete('/:calId', (req, res) => {
     //res.send('lets delete')
-    const {calId} = req.params
-    
-    
+    const {calId} = req.params 
     PersonalCal.findById(calId)
         .then(calendar => {
             console.log('cal.owner', calendar.owner)
@@ -31,11 +29,7 @@ router.delete('/:calId', (req, res) => {
                 res.render('users/login')
             }
         })
-        .catch(err => console.log(err))
-    
-    
-    
-    
+        .catch(err => console.log(err))  
 })
 
 //GET Route - display a calendar entry edit form
@@ -46,11 +40,9 @@ router.get('/:calId/:eventId/edit', (req, res) => {
     Event.findById(eventId)
         .then(event => {
             console.log(event)
-
             res.render('personal/PCeventEdit', {calId, eventId, event} )
         })
-        .catch(err => console.log(err))
-    
+        .catch(err => console.log(err))    
 })
 
 //PUT update route - update the edited calendar entry
@@ -62,14 +54,13 @@ router.put('/:calId/:eventId', (req, res)=> {
         .then(cal => {           
             cal.events.forEach((item, i) => {
                 if (item._id == eventId) {
-                    console.log('preslice', cal)
+                    //console.log('preslice', cal)
                     cal.events.splice(i, 1)
-                    console.log('postslice', cal)
+                    //console.log('postslice', cal)
                     cal.events.push(req.body)
-                    console.log('post push', cal)
+                    //console.log('post push', cal)
                     cal.save()
-                    console.log('edited', item)
-                    
+                    //console.log('edited', item)                   
                     res.redirect(`/personal/${calId}`)
                 }
             })
@@ -77,24 +68,16 @@ router.put('/:calId/:eventId', (req, res)=> {
         .catch(err => console.log(err))
 })
 
-
 //GET Route - display a new evntry form
-router.get('/newEvent', (req, res) => {
-
-})
-
-//CREATE POST Route - 
-router.post('/', (req, res) => {
-
+router.get('/newEvent/:calId', (req, res) => {
+    const {calId} = req.params
+    res.render('personal/PCnewEvent', {calId})
 })
 
 //Main Personal Calendar page route
-router.get('/list', (req, res) => {
-    
+router.get('/list', (req, res) => {   
     PersonalCal.find({})
-        // return fruits as JSON
         .then(data => {
-            //res.json(fruit)
             console.log(data)
             res.render('personal/showPersonalCal', {data})
         })
@@ -122,34 +105,39 @@ router.post('/new', (req, res) => {
     } else {
         res.render('users/login')
     }
-    
-    
+})
+
+//GET route to select the calendar to add the item to
+router.get('/select/:eventId', (req, res) => {
+    const {eventId} = req.params
+    PersonalCal.find({})
+        .then(data => {
+            //console.log(data)
+            res.render('personal/calSelection', {eventId, data})
+        })
+        .catch(err => console.log(err))  
 })
 
 // GET route push a single event to personal calendar
-router.get('/add/:eventId', (req, res) => {
-    //res.send('sup')
+router.get('/add/:calId/:eventId', (req, res) => {
     const {eventId} = req.params
-    console.log('eventID', eventId)
+    const {calId} = req.params
+    //console.log('eventID', eventId)
     // Single event is sent here to be added to personal calendar
     // we bring the event up
     Event.findById(eventId)
         .then(event => {
             //console.log('i am the event', event)
             // we then bring up the calendar we want to add the event to
-
-            PersonalCal.findOneAndUpdate({})
+            //console.log('calId before PersonalCal', calId)
+            PersonalCal.findByIdAndUpdate(calId)
                 .then(cal => {
-                    //console.log('im cal', cal)
                     //we push the event to the calendara events field's array.
-                    //console.log('im the event going in', event)
+                    //console.log('im calid', cal._id, calId)
+                    //console.log('im cals name', cal.name)
                     cal.events.push(event)
-                    return cal.save()
-                })
-                .then(cal => {                   
-                    const data = cal.events           
-                    console.log('im calid outgoing', cal._id)
-                    res.redirect(`/personal/${cal._id}`)
+                    cal.save()
+                    res.redirect(`/personal/${calId}`)
                 })
                 .catch(err => console.log(err))
         })
@@ -163,7 +151,7 @@ router.get('/:calId', (req, res) => {
     PersonalCal.findById(calId)   
         .then(cal => { 
             data = cal.events
-            res.render('personal/personalIndex', {data, cal})
+            res.render('personal/personalIndex', {data, cal, calId})
         })
         .catch(err => console.log(err))
 })
@@ -200,8 +188,6 @@ router.get('/show/:eventId/:calId', (req, res) => {
                     res.render('personal/showOnPersonal', {item, calId})
                 }
             })
-            // console.log('dataid from personal/show', data._id)
-            // res.render('personal/showOnPersonal', {data, calId})
         })
         .catch(err => console.log(err))
 })
