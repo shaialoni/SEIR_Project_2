@@ -74,12 +74,31 @@ router.get('/newEvent/:calId', (req, res) => {
     res.render('personal/PCnewEvent', {calId})
 })
 
+//CREATE POST Route - post new event
+router.post('/newEvent/:calId', (req, res) => {
+    const {calId} = req.params
+    PersonalCal.findById(calId)
+        .then(cal => {
+            //console.log('im cal', cal)
+            //we push the event to the calendara events field's array.
+            //console.log('im the event going in', event)
+            console.log('reqbody', req.body)
+            cal.events.push(req.body)
+            cal.save()
+            console.log('this is the updated cal', cal)
+            res.redirect(`/personal/${cal._id}`)
+        })
+        .catch(err => console.log(err))
+
+})
+
 //Main Personal Calendar page route
 router.get('/list', (req, res) => {   
     PersonalCal.find({})
         .then(data => {
-            console.log(data)
-            res.render('personal/showPersonalCal', {data})
+            console.log(req.session)
+            const owner = req.session.userId
+            res.render('personal/showPersonalCal', {data, owner})     
         })
         .catch(err => console.log(err))
 })

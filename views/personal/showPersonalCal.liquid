@@ -3,6 +3,7 @@
 {% block content %}
 <div class="card-body">
     {% for data in data %}
+    {% if data.owner == owner %}
     <div class="card" style="width: 18rem">
         <h2 class="card-header"><a href="/personal/{{data._id}}">{{data.name}}</a></h2>
                 <p class="card-text">Description: {{data.description}}</p>
@@ -14,6 +15,7 @@
                 </form>
             </div>
         </div>
+    {% endif %}
     {% endfor %}
 </div>
             
