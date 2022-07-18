@@ -1,12 +1,48 @@
 body {
-    background-color: rgb(113, 158, 197);
+    background-image: url('../images/backgroundCal.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: contain;
+    background-size: cover;
+    font-family: 'Roboto', sans-serif;
 }
  .card {
     margin: 5px;
     padding: 10px;
-    background-color: rgb(97, 132, 239);
+    background-color: rgba(22, 23, 24, 0.73);
+    color: rgb(109, 179, 228);
  }
  
 a {
-    margin: 15px;
+    margin: 5px;
+}
+
+li {
+    margin: 5px;
+}
+
+form {
+    width: 600px;
+}
+
+#calList {
+    width: 750px;
+}
+
+legend {
+    color: rgb(109, 179, 228);
+    font-size: 35px;
+}
+
+.btn {
+    background-color: rgb(109, 179, 228);
+}
+
+#btn-delete {
+    background-color: rgba(101, 35, 35, 0.674);
+}
+
+#navBar, #navBarTitle {
+    background-color: rgba(22, 23, 24, 0.73);
+    color: rgb(109, 179, 228);
 }

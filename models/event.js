@@ -1,6 +1,5 @@
 const mongoose = require('./connection')
 const calSchema = require('./personalCal')
-
 const { Schema, model } = mongoose
 
 
@@ -15,11 +14,12 @@ const eventSchema = new Schema({
         type: Boolean,
         required: false
     },
+    calId: String,
     owner: {
         type: Schema.Types.ObjectId,
-        ref: 'User'   
+        ref: 'User',
+        required: false   
     },
-    //comments: [commentSchema]
 }, {
     timestamps: true
 })

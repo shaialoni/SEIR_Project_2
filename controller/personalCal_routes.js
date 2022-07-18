@@ -3,7 +3,7 @@ const fetch = require('node-fetch')
 const mongoose = require('mongoose')
 const db = mongoose.connection
 ////////////////////////////////////
-// Creaet a router
+// Create a router
 ////////////////////////////////////
 const router = express.Router()
 
@@ -15,18 +15,18 @@ const PersonalCal = require('../models/personalCal')
 
 //DESTROY route 
 router.delete('/:calId', (req, res) => {
-    //res.send('lets delete')
     const {calId} = req.params 
+    const userInfo = req.session.username
     PersonalCal.findById(calId)
         .then(calendar => {
-            console.log('cal.owner', calendar.owner)
-            console.log(req.session.userId)
+            // compare calendar owner to logged in user before erasing
             if (calendar.owner == req.session.userId) {
+                //once identity confirmed and authorized, we find the calendar and delete it
                 PersonalCal.findByIdAndDelete(calId)
                 .then(calendar => res.redirect('/personal/list'))
                 .catch(err => console.log(err))
             } else {
-                res.render('users/login')
+                res.render('users/login', {userInfo})
             }
         })
         .catch(err => console.log(err))  
@@ -36,11 +36,12 @@ router.delete('/:calId', (req, res) => {
 router.get('/:calId/:eventId/edit', (req, res) => {
     const {calId} = req.params
     const {eventId} = req.params
-    console.log(eventId)
+    const userInfo = req.session.username
+    //find the event we want to edit
     Event.findById(eventId)
         .then(event => {
-            console.log('going to get edited', event)
-            res.render('personal/PCeventEdit', {calId, eventId, event} )
+            //send to edit liquid page for editing, attach CalId, eventId and event data as variables
+            res.render('personal/PCeditEvent', {calId, eventId, event, userInfo} )
         })
         .catch(err => console.log(err))    
 })
@@ -50,27 +51,24 @@ router.get('/:calId/:eventId/edit', (req, res) => {
 router.put('/:calId/:eventId', (req, res)=> {
     const {calId} = req.params
     const {eventId} = req.params
-    //console.log('reqbody', req.body)
+    //find the event being edited, and assign the edited fields to the event
     Event.findByIdAndUpdate(eventId, req.body)
-        .then(event => {           
-            //console.log('event after', event)
+        .then(event => {
+            // save the edited document
             event.save()
             res.redirect(`/personal/${calId}`)       
         })
         .catch(err => console.log(err))
 })
         
-
-
-
-
 //GET Route - display a new evntry form
 router.get('/newEvent/:calId', (req, res) => {
     const {calId} = req.params
-    res.render('personal/PCnewEvent', {calId})
+    const userInfo = req.session.username
+    res.render('personal/PCnewEvent', {calId, userInfo})
 })
 
-//CREATE POST Route - post new event
+//CREATE POST Route - post new event on personal calendar
 //Test code
 router.post('/newEvent/:calId', (req, res) => {
     const {calId} = req.params
@@ -95,38 +93,22 @@ router.post('/newEvent/:calId', (req, res) => {
         .catch(err => console.log(err))
 })
 
-
-// router.post('/newEvent/:calId', (req, res) => {
-//     const {calId} = req.params
-//     PersonalCal.findById(calId)
-//         .then(cal => {
-//             //console.log('im cal', cal)
-//             //we push the event to the calendara events field's array.
-//             //console.log('im the event going in', event)
-//             console.log('reqbody', req.body)
-//             cal.events.push(req.body)
-//             cal.save()
-//             console.log('this is the updated cal', cal)
-//             res.redirect(`/personal/${cal._id}`)
-//         })
-//         .catch(err => console.log(err))
-
-// })
-
 //Main Personal Calendar page route
-router.get('/list', (req, res) => {   
+router.get('/list', (req, res) => {  
+    const userInfo = req.session.username
     PersonalCal.find({})
         .then(data => {
             console.log(req.session)
             const owner = req.session.userId
-            res.render('personal/showPersonalCal', {data, owner})     
+            res.render('personal/showPersonalCal', {data, owner, userInfo})     
         })
         .catch(err => console.log(err))
 })
 
 // GET route - create a new calendar
 router.get('/new', (req, res) => {
-    res.render('personal/newCal')
+    const userInfo = req.session.username
+    res.render('personal/newCal' , {userInfo})
 })
 //POST route - create a new calendar
 router.post('/new', (req, res) => {
@@ -151,10 +133,11 @@ router.post('/new', (req, res) => {
 router.get('/select/:eventId', (req, res) => {
     const {eventId} = req.params
     const owner = req.session.userId
+    const userInfo = req.session.username
     PersonalCal.find({})
         .then(data => {
             //console.log(data)
-            res.render('personal/calSelection', {eventId, data, owner})
+            res.render('personal/calSelection', {eventId, data, owner,userInfo})
         })
         .catch(err => console.log(err))  
 })
@@ -168,30 +151,26 @@ router.get('/add/:calId/:eventId', (req, res) => {
     // we bring the event up
     Event.findById(eventId)
         .then(event => {
-            //We tag the event with the ow
-            //event.owner = req.session.userId
             //Since we want a copy of the event, until I figure out how to do it....
             // I am assigning manually every field of the event to a new object
-            const newEvent = {title: '', date: '', hdate: '', category: '', hebrew: '', memo: '', yomtov: Boolean, owner: ''}
-            newEvent.title = event.title
-            newEvent.date = event.date
-            newEvent.hdate = event.hdate
-            newEvent.category = event.category
-            newEvent.hebrew = event.hebrew
-            newEvent.memo = event.memo
-            newEvent.yomtov = event.yomtov
-            newEvent.calId = calId // I am tagging the new event with the calendar ID of the calendar they will belong to
-            newEvent.owner = event.owner
-            console.log('im an event without an id', newEvent)
-            // I use this object to create a new event. Identical, but with a different _id
+            const newEvent = {
+                title: event.title, 
+                date: event.date, 
+                hdate: event.hdate, 
+                category: event.category, 
+                hebrew: event.hebrew, 
+                memo: event.memo, 
+                yomtov: event.yomtov, 
+                owner: event.owner,
+                calId: calId // I am tagging the new event with the calendar ID of the calendar they will belong to
+            }
+            // I use this object to create a new event. Identical to the original, but with a different _id
             Event.create(newEvent)
                 .then(newEvent => {
                      // we then bring up the calendar we want to add the event to
                     PersonalCal.findByIdAndUpdate(calId)
                         .then(cal => {
                         //we push the event to the calendara events field's array.
-                        //console.log('im calid', cal._id, calId)
-                        //console.log('im cals name', cal.name)
                         cal.events.push(newEvent)
                         //save the document
                         cal.save()
@@ -208,74 +187,55 @@ router.get('/add/:calId/:eventId', (req, res) => {
 //localhost:3000/personal
 router.get('/:calId', (req, res) => {
     const {calId} = req.params
+    const userInfo = req.session.username
+    //Find the calendar we want to view
     PersonalCal.findById(calId)   
         .then(cal => { 
+            //isolate the events array
             data = cal.events
-            res.render('personal/personalIndex', {data, cal, calId})
+            // render the index page, using the events array to supply the data
+            res.render('personal/personalIndex', {data, cal, calId, userInfo})
         })
         .catch(err => console.log(err))
 })
 
 //DESTROY route - delete event from personal calendar
-// test code
+//working code
 router.delete('/show/:calId/:eventId', (req, res) => {
     const {eventId} = req.params
     const {calId} = req.params
-    PersonalCal.findById(calId) 
-        .then(calendar => {
-            console.log(' lets check it out', calendar.events.id)
-            const event = calendar.events.id(eventId)
-            console.log(eventId, calId)
-            event.remove()
-            return event.save()
-        })
-        .then(event => {
-            res.redirect(`/personal/${calId}`)
+    //find the calendar we want to erase the event from
+    PersonalCal.findOne({_id: calId})
+        .then(cal => {
+            // using an array method, find the event using the event ID
+            cal.events.forEach((item, i) => {
+                if (item._id == eventId) {
+                    // remove the event out of the array
+                    cal.events.splice(i, 1)
+                    // save the document
+                    cal.save()
+                    res.redirect(`/personal/${calId}`)
+                }
+            })
         })
         .catch(err => console.log(err))
 })
-    
-
-        
-
-
-
-//working code
-// router.delete('/show/:calId/:eventId', (req, res) => {
-//     const {eventId} = req.params
-//     const {calId} = req.params
-//     PersonalCal.findOne({_id: calId})
-//         .then(cal => {
-//             console.log(cal.events[0]._id)
-//             cal.events.forEach((item, i) => {
-//                 if (item._id == eventId) {
-//                     cal.events.splice(i, 1)
-//                     cal.save()
-//                     res.redirect(`/personal/${calId}`)
-//                 }
-//             })
-//         })
-//         .catch(err => console.log(err))
-// })
 
 //SHOW Route - show events from personal calendar
-// test code - working
 router.get('/show/:eventId/:calId', (req, res) => {
     const {eventId} = req.params
     const {calId} = req.params
-    console.log('tryin to pass calid', calId)
+    const userInfo = req.session.username
     Event.findById(eventId)
         .then(item => {
-            console.log('item', item)
-            res.render('personal/showOnPersonal', {item, calId})
+            res.render('personal/showOnPersonal', {item, calId, userInfo})
         })
         .catch(err => console.log(err))
 })
 
 module.exports = router
 
-//Working code
-//PUT update route
+//OLD PUT update route
 // router.put('/:calId/:eventId', (req, res)=> {
 //     const {calId} = req.params
 //     const {eventId} = req.params
@@ -298,7 +258,7 @@ module.exports = router
 //         .catch(err => console.log(err))
 // })
 
-//old code SHOW route - show events from personal calendar
+//OLD SHOW route - show events from personal calendar
 // router.get('/show/:eventId/:calId', (req, res) => {
 //     const {eventId} = req.params
 //     const {calId} = req.params
@@ -315,3 +275,54 @@ module.exports = router
 //         })
 //         .catch(err => console.log(err))
 // })
+
+//OLD Create POST Route - post new event on personal calendar
+// router.post('/newEvent/:calId', (req, res) => {
+//     const {calId} = req.params
+//     PersonalCal.findById(calId)
+//         .then(cal => {
+//             //console.log('im cal', cal)
+//             //we push the event to the calendara events field's array.
+//             //console.log('im the event going in', event)
+//             console.log('reqbody', req.body)
+//             cal.events.push(req.body)
+//             cal.save()
+//             console.log('this is the updated cal', cal)
+//             res.redirect(`/personal/${cal._id}`)
+//         })
+//         .catch(err => console.log(err))
+
+// })
+
+//DESTROY route
+// test code
+// router.delete('/show/:calId/:eventId', (req, res) => {
+//     const {eventId} = req.params
+//     const {calId} = req.params
+//     Event.findByIdAndDelete(eventId)
+//         .then(event => {
+//             res.redirect(`/personal/${calId}`)
+//         })
+//         .catch(err => console.log(err))
+// })
+
+
+//DESTROY route - delete event from personal calendar
+// test code - currently document.id() function is not working. WHY???
+// router.delete('/show/:calId/:eventId', (req, res) => {
+//     const {eventId} = req.params
+//     const {calId} = req.params
+//     PersonalCal.findById(calId) 
+//         .then(calendar => {
+//              console.log(' lets check it out', calendar.events.id)
+//             const event = calendar.events.id(eventId)
+//             console.log(eventId, calId)
+//             event.remove()
+//             return calendar.save()
+//         })
+//         .then(event => {
+//             res.redirect(`/personal/${calId}`)
+//         })
+//         .catch(err => console.log(err))
+// })
+  

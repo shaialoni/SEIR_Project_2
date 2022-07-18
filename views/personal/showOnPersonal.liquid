@@ -1,18 +1,14 @@
 {% layout 'layout.liquid' %}
 
 {% block content %}
-<h1>calId{{calId}}</h1>
-<h1>eventId{{item._id}}</h1>
     <h2 class="card-header">{{item.title}}</h2>
         <div class="card-body">
             <div class="card" style="width: 18rem">
-                <p class="card-text">Category: {{item.category}}</p>
                 <p class="card-text">Date: {{item.date}}</p>
                 <p class="card-text">Heb Date: {{item.hdate}}</p>
-
-                <p class="card-text">Memo: {{item.memo}}</p>
+                <p class="card-text">Category: {{item.category}}</p>
                 <p class="card-text">Hebrew: {{item.hebrew}}</p>
-                
+                <p class="card-text">Memo: {{item.memo}}</p>
                 <p class="card-text">Yomtov: 
                     {% if item.yomtov %} 
                     Yes 
@@ -22,12 +18,12 @@
                 </p>
             </div>
             <div class="btn-group">
-                <a href="/personal/{{calId}}" class="btn btn-primary">Back to calendar's main page</a> 
-                <a href="/personal/{{calId}}/{{item._id}}/edit" class="btn btn-primary">Edit Event</a>
+                <a href="/personal/{{calId}}" class="btn">Back to calendar's main page</a> 
+                <a href="/personal/{{calId}}/{{item._id}}/edit" class="btn">Edit Event</a>
             </div>
             <div class="btn-group">
                 <form action="/personal/show/{{calId}}/{{item._id}}?_method=DELETE" method="POST">
-                    <input type="submit" value="DELETE" class="btn btn-danger">                     
+                    <input type="submit" value="DELETE" class="btn" id="btn-delete">                     
                 </form>
             </div>
         </div>

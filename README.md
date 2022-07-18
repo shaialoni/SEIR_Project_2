@@ -1,22 +1,81 @@
-# Project 2
+# Hebrew Calendar App
+User stories ('As a user...')
+- View all calendar items from API - Index
+  - import all calendar items to different schemas according to type
+  - look for all calendar entries
+  - display all calendar entries
 
-## Overview
+- View single calendar item from API - Show
+  - look for one calendar item
+  - display single item searched for
+  - Save single calendar item to personal folder
 
-This second project is your first foray into **building a full-stack application.** You'll be **building a Node app,** which means you'll learn about what it takes to build a functional application from the ground up yourself.
+- Personal calendar - View all items - Saved
+  - look for all items in personal folder
+  - display all items in personal folder
 
-**This is exciting!** It's a lot, but we'll give you the tools over the next few weeks to be able build what you need, and you get to decide what you do with it. And you get to be creative in choosing what sort of application you want to build!
+- Personal calendar - Create new entry - New
+  - new schemas (different schemas depending on event type)
+  - create the different models to use
 
-**You will be working individually for this project**, and you'll be designing the app yourself. We hope you'll exercise creativity on this project, sketch some wireframes before you start, and write user stories to define what your users will want to do with the app. Make sure you have time to run these ideas by your instructors to get their feedback before you dive too deep into code! Remember to keep things small and focus on mastering the fundamentals -- scope creep/feature creep is the biggest pitfall for any project!
+- Personal calendar - Edit a single entry - Edit
+  - look for a single entry
+  - edit that entry
+  - get back the updated version
+
+- Personal calendar - Delete single entry - Delete
+  - look for a single entry
+  - remove entry from db
+  - display confirmation
+
+
+Schemas
+- Event entry
+  - Category: string
+  - title: String / time
+  - time: date / time
+  - memo: string
+  - hebrew: string
+  - hebrew date: string
+  - yomtov: boolean
+  - owner
+
+- Personal Calendar
+  - Name: string
+  - Description: string
+  - Events: Array of strings by 
+  - owner
+
+
+![](ERD.png)
+
+![](route_table.png)
+
+![](wire%20frames.png)
+
+
+
+
+
+
+
+Route table:
+Name:    |Path:        |HTTP Verb |Purpose
+Index    |/cal         |GET       |Display all info from API
+Show     |/cal/:id     |GET       |Display single item
+Show     |/cal/personal|GET       |Display personal calendar
+Save     |/cal/save    |GET       |Save single item to personal calendar
+New      |/cal/new     |GET       |Displays a form to add a new entry
+Create   |/cal         |POST      |Create the new entry in the DB
+Edit     |/cal/:id/edit|GET       |Show edit item form
+Update   |/cal/:id     |PUT       |Update a single item
+Destroy  |/cal/:id     |DELETE    |Delete single saved item
+
 
 ## Technical Requirements
 
 Your app must:
 
-* **Have at** _**least**_ **2 models** \(more if they make sense\) that represents the main functional idea for your app.
-  * Note: If your app idea doesn't really call for more models, let your instructors know and they can suggest ideas for other sufficiently difficult replacements for this requirement.
-* **Incorporate at least one API, OR seed your Database** List of examples here: \(Public API List\)\[[https://github.com/public-apis/public-apis](https://github.com/public-apis/public-apis)\]. If you use one of the APIs we've used in class(such as the weather API) you must use an additional API or seeded data(at least 10 documents).
-* **Have complete RESTful routes** for at least one of your resources with GET, POST, PUT, and DELETE
-* **Utilize an ODM to create a database table structure** and interact with your MongoDb-stored data
 * **Include a readme file** that explains how to use your app and contains a route table for your RESTful routes
 * Have **semantically clean HTML, CSS, and back-end code**
 * **Be deployed online** and accessible to the public

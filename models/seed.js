@@ -8,7 +8,7 @@
 const mongoose = require('./connection')
 const Event = require('./event')
 const fetch = require('node-fetch')
-const PersonalCal = require('./personalCal')
+//const PersonalCal = require('./personalCal')
 
 ////////////////////////////////////
 //Seed Code

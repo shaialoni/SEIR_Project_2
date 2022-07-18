@@ -5,14 +5,6 @@
     <form action="/personal/newEvent/{{calId}}/{{eventId}}" method="POST">
         <fieldset>
             <legend>Create event</legend>
-            <!-- <label class="form-label">ID:</label>
-            <input 
-                type="text" 
-                name="_id" 
-                placeholder="enter ID" 
-                value="{{event._id}}"
-                class="form-control"
-            > -->
             <label class="form-label">Title:</label>
             <input 
                 type="text" 
@@ -72,10 +64,12 @@
             <input 
                 type="submit" 
                 value="CREATE EVENT"
-                class="btn btn-success"
+                class="btn"
             >
         </div>
-        <a href="/personal/{{calId}}" class="btn btn-warning">Nevermind</a>
+        <a href="/personal/{{calId}}" class="btn">Nevermind</a>
     </form> 
 </div>
 {% endblock %}
+
+<!-- new event entry creation form -->

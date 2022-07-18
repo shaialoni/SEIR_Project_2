@@ -2,18 +2,9 @@
 
 {% block content %}
 <div class="container-md">
-    <form action="/personal/{{calId}}/{{eventId}}?_method=PUT" method="POST">
+    <form action="/personal/{{calId}}/{{event._id}}?_method=PUT" method="POST">
         <fieldset>
             <legend>Edit event: {{event.title}}</legend>
-            <!-- <label class="form-label" display="none">ID:</label>
-            <input 
-                type="text" 
-                name="_id" 
-                placeholder="enter ID" 
-                value="{{event._id}}"
-                class="form-control"
-                display="none"
-            > -->
             <label class="form-label">Title:</label>
             <input 
                 type="text" 
@@ -76,10 +67,12 @@
             <input 
                 type="submit" 
                 value="Edit {{event.title}}"
-                class="btn btn-success"
+                class="btn"
             >
         </div>
-        <a href="/personal/{{calId}}" class="btn btn-warning">Nevermind</a>
+        <a href="/personal/{{calId}}" class="btn">Nevermind</a>
     </form> 
 </div>
 {% endblock %}
+
+<!-- personal calendar event edit form -->

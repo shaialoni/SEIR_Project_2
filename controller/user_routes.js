@@ -16,8 +16,9 @@ const router = express.Router()
 
 // one GET to show the form
 router.get('/signup', (req, res) => {
+    const userInfo = req.session.username
     //res.send('tada')
-    res.render('users/signup')
+    res.render('users/signup', {userInfo})
 })
 
 // one POST to make the DB request
@@ -50,7 +51,8 @@ router.post('/signup', async (req, res) => {
 //two login routes
 // one GET to show the form
 router.get('/login', (req, res) => {
-    res.render('users/login')
+    const userInfo = req.session.username
+    res.render('users/login', {userInfo})
 })
 // one POST to login and create the session
 router.post('/login', async (req, res) => {

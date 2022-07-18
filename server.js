@@ -8,7 +8,6 @@ const morgan = require('morgan')
 const methodOverride = require('method-override')
 const eventRoutes = require('./controller/event_routes')
 const userRoutes = require('./controller/user_routes')
-const commentRoutes = require('./controller/comment_routes')
 const personalCalRoutes = require('./controller/personalCal_routes')
 
 ////////////////////////////////////////////

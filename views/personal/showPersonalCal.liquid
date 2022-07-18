@@ -2,16 +2,17 @@
 
 {% block content %}
 <div class="card-body">
+    <legend>Personal Calendars Available:</legend>
     {% for data in data %}
     {% if data.owner == owner %}
-    <div class="card" style="width: 18rem">
+    <div class="card" id="calList">
         <h2 class="card-header"><a href="/personal/{{data._id}}">{{data.name}}</a></h2>
                 <p class="card-text">Description: {{data.description}}</p>
             </div>
             <div class="btn-group">
                 <form action="/personal/{{data._id}}?_method=DELETE" method="POST">
-                    <a href="/cal" class="btn btn-primary">Back to main page</a>
-                    <input type="submit" value="DELETE CALENDAR" class="btn btn-danger">
+                    <a href="/cal" class="btn">Back to main page</a>
+                    <input type="submit" value="DELETE CALENDAR" class ="btn" id="btn-delete">
                 </form>
             </div>
         </div>

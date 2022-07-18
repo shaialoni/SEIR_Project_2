@@ -1,5 +1,4 @@
 const express = require('express')
-const fetch = require('node-fetch')
 const mongoose = require('mongoose')
 const db = mongoose.connection
 ////////////////////////////////////
@@ -11,15 +10,14 @@ const router = express.Router()
 // List our routes
 ////////////////////////////////////
 const Event = require('../models/event')
-const PersonalCal = require('../models/personalCal')
+//const PersonalCal = require('../models/personalCal')
 
 //Main page route
 router.get('/', (req, res) => {
+    const userInfo = req.session.username
     Event.find({})
-        // return fruits as JSON
         .then(data => {
-            //res.json(fruit)
-            res.render('index', {data})
+            res.render('index', {data, userInfo})
         })
         .catch(err => {
             res.json(err)
@@ -29,13 +27,10 @@ router.get('/', (req, res) => {
 //SHOW Route
 router.get('/:eventId', (req, res) => {
     const {eventId} = req.params
-
+    const userInfo = req.session.username
     Event.findById(eventId)
         .then(data => {
-            // const userId = req.session.userId
-            // const username = req.session.username
-            //console.log(data)
-            res.render('show', {data}) //, userId, username
+            res.render('show', {data, userInfo})
         })
         .catch(err => {
             res.json(console.log(err))

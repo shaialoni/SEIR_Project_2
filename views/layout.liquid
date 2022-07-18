@@ -12,18 +12,23 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd">
-        <div class="container-fluid" id="navBar">
-            <a href="/cal" class="navbar-brand">HebCal Personal Calendar</a>
+    <nav class="navbar navbar-expand-md navbar-light" id="navBar">
+        <div class="container-fluid">
+            <a href="/cal" class="navbar-brand" id="navBarTitle">HebCal Personal Calendar</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <a href="/users/signup" class="nav-link text-dark">New user signup</a>
-                <a href="/users/login" class="nav-link text-dark">Log in</a>
-                <a href="/users/logout" class="nav-link text-dark">Log out</a>
-                <a href="/personal/list" class="nav-link text-dark">My Calendars</a>
-                <a href="/personal/new" class="nav-link text-dark">Create New Calendar</a>
+                <a href="/users/signup" class="nav-link">||  New user signup</a>
+                <a href="/users/login" class="nav-link">||  Log in</a>
+                <a href="/users/logout" class="nav-link">||  Log out</a>
+                <a href="/personal/list" class="nav-link">||  My Calendars</a>
+                <a href="/personal/new" class="nav-link">||  Create New Calendar</a>
+                {% if userInfo %}
+                <a class="nav-link">|| Hello, {{userInfo}}</a>
+                {% elsif %}
+                <a class="nav-link">|| Please log in</a>
+                {% endif %}
             </div>
         </div>
     </nav>

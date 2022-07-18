@@ -1,7 +1,6 @@
 {% layout 'layout.liquid' %}
 
 {% block content %}
-
 <div class="card" style="width: 18rem;">
     <h1>{{cal.name}}</h1>
     <div class="card-header">
@@ -13,10 +12,9 @@
         <li class="list-group-item"><a href="/personal/show/{{data._id}}/{{cal._id}}">{{data.title}}</a></li>
         {% endfor %}
     </ul>
-    <a href="/personal/list" class="btn btn-success">Back to calendars list</a>
-    <a href="/personal/newEvent/{{calId}}" class="btn btn-success">Create New Event</a>
+    <a href="/personal/list" class="btn">Back to calendars list</a>
+    <a href="/personal/newEvent/{{calId}}" class="btn">Create New Event</a>
 </div>
-
 {% endblock %}
 
 <!-- DISPLAY OF EVENTS UNDER PERSONAL CALENDAR -->
