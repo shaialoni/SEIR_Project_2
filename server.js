@@ -52,6 +52,7 @@ app.get('/', (req, res) => {
 	res.send('<a href="/cal/"> Take me home</a>')
 })
 
+//port set up
 const PORT = process.env.PORT
 app.listen(PORT, () => {
     console.log(`app listening on port ${PORT}`)
