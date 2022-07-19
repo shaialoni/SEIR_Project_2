@@ -74,11 +74,15 @@ router.get('/newEvent/:calId', (req, res) => {
 //Test code
 router.post('/newEvent/:calId', (req, res) => {
     const {calId} = req.params
+    console.log('calid', calId)
     PersonalCal.findById(calId)
         .then(cal => {
+            console.log('cal', cal)
+            console.log('reqbody', req.body)
             //we push the event to the calendara events field's array.
             Event.create(req.body)
                 .then(event => {
+                    console.log('new event', event)
                     event.calId = calId
                     cal.events.push(event)
                     cal.save()
@@ -224,6 +228,7 @@ router.get('/show/:eventId/:calId', (req, res) => {
     const userInfo = req.session.username
     Event.findById(eventId)
         .then(item => {
+            console.log('showing event', item)
             res.render('personal/showOnPersonal', {item, calId, userInfo})
         })
         .catch(err => console.log(err))
