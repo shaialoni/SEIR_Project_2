@@ -54,22 +54,23 @@ router.put('/:calId/:eventId', (req, res)=> {
     //find the event being edited, and assign the edited fields to the event
     console.log('reqbody', req.body)
     req.body.yomtov = req.body.yomtov === 'on' ? true:false
-    Event.findById(eventId)
-        .then(event => {
-            console.log('pre edited event', event)
-            event.title = req.body.title 
-            event.date = req.body.date
-            event.hdate = req.body.hdate 
-            event.category = req.body.category
-            event.hebrew = req.body.hebrew
-            event.memo = req.body.memo 
-            event.yomtov = req.body.yomtov 
-            event.calId = calId
-            console.log('post edit event', event)
-            // save the edited document
-            return event.save()
-        })
-        .then (event => {    
+    Event.findByIdAndUpdate(eventId, req.body, {new: true})
+        // .then(event => {
+        //     //console.log('pre edited event', event)
+        //     // event.title = req.body.title 
+        //     // event.date = req.body.date
+        //     // event.hdate = req.body.hdate 
+        //     // event.category = req.body.category
+        //     // event.hebrew = req.body.hebrew
+        //     // event.memo = req.body.memo 
+        //     // event.yomtov = req.body.yomtov 
+        //     // event.calId = calId
+        //     console.log('post find and update event', event)
+        //     // save the edited document
+        //     return event.save()
+        // })
+        .then(event => {   
+            console.log('post find and update event', event) 
             res.redirect(`/personal/${calId}`)       
         })
         .catch(err => console.log(err))
@@ -96,7 +97,7 @@ router.post('/newEvent/:calId', (req, res) => {
                 .then(event => {
                     console.log('new event', event)
                     event.calId = calId
-                    cal.events.push(event)
+                    cal.events.push(event._id)
                     cal.save()
                     res.redirect(`/personal/${cal._id}`)
                 })
@@ -187,7 +188,7 @@ router.get('/add/:calId/:eventId', (req, res) => {
                         .then(cal => {
                         console.log('calenda')
                         //we push the event to the calendara events field's array.
-                        cal.events.push(newEvent)
+                        cal.events.push(newEvent._id)
                         //save the document
                         cal.save()
                         res.redirect(`/personal/${calId}`)
@@ -205,7 +206,8 @@ router.get('/:calId', (req, res) => {
     const {calId} = req.params
     const userInfo = req.session.username
     //Find the calendar we want to view
-    PersonalCal.findById(calId)   
+    PersonalCal.findById(calId) 
+        .populate('events')  
         .then(cal => { 
             //isolate the events array
             data = cal.events
