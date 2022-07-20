@@ -11,10 +11,11 @@ const calSchema = new Schema({
         required: true,
         ref: 'User'   
     },
-    events: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Event'
-    }],
+    events: [Event],
+    // events: [{
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Event'
+    // }],
 }, {
     timestamps: true
 })

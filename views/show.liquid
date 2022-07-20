@@ -2,33 +2,32 @@
 
 {% block content %}
 
-    <h2 class="card-header">{{data.title}}</h2>
-        <div class="card-body">
-            <div class="card" style="width: 18rem">
-                <p class="card-text">Category: {{data.category}}</p>
-                <p class="card-text">Date: {{data.date}}</p>
-                <p class="card-text">Heb Date: {{data.hdate}}</p>
+<div class="card-body">
+    <div class="card" style="width: 18rem">
+        <h2 class="card-header">{{data.title}}</h2>
+        <p class="card-text">Category: {{data.category}}</p>
+        <p class="card-text">Date: {{data.date | date: "%m-%d-%y"}}</p>
+        <p class="card-text">Heb Date: {{data.hdate}}</p>
 
-                <p class="card-text">Memo: {{data.memo}}</p>
-                <p class="card-text">Hebrew: {{data.hebrew}}</p>
-                
-                <p class="card-text">Yomtov: 
-                    {% if data.yomtov %} 
-                    Yes 
-                    {% else %} 
-                    No 
-                    {% endif %}
-                </p>
-            </div>
-            <div class="btn-group">
-                <form action="/personal{{data}}?_method=DELETE" method="POST">
-                    
-                    <a href="/cal" class="btn">Back to main page</a>            
-                    <a href="/personal/select/{{data._id}}" class="btn">Add to Personal Calendar</a>
-                </form>
-            </div>
-        </div>
-
-
-              
+        <p class="card-text">Memo: {{data.memo}}</p>
+        <p class="card-text">Hebrew: {{data.hebrew}}</p>
+        
+        <p class="card-text">Yomtov: 
+            {% if data.yomtov %} 
+            Yes 
+            {% else %} 
+            No 
+            {% endif %}
+        </p>
+    </div>
+    <div class="btn-group">
+        <form action="/personal{{data}}?_method=DELETE" method="POST">
+            
+            <a href="/cal" class="btn">Back to main page</a>            
+            <a href="/personal/select/{{data._id}}" class="btn">Add to Personal Calendar</a>
+        </form>
+    </div>
+</div>
 {% endblock %}
+
+<!-- Show page for items on main index page -->

@@ -53,11 +53,23 @@ router.put('/:calId/:eventId', (req, res)=> {
     const {eventId} = req.params
     //find the event being edited, and assign the edited fields to the event
     console.log('reqbody', req.body)
-    Event.findByIdAndUpdate(eventId, req.body)
+    req.body.yomtov = req.body.yomtov === 'on' ? true:false
+    Event.findById(eventId)
         .then(event => {
-            console.log('edited event', event)
+            console.log('pre edited event', event)
+            event.title = req.body.title 
+            event.date = req.body.date
+            event.hdate = req.body.hdate 
+            event.category = req.body.category
+            event.hebrew = req.body.hebrew
+            event.memo = req.body.memo 
+            event.yomtov = req.body.yomtov 
+            event.calId = calId
+            console.log('post edit event', event)
             // save the edited document
-            event.save()
+            return event.save()
+        })
+        .then (event => {    
             res.redirect(`/personal/${calId}`)       
         })
         .catch(err => console.log(err))
@@ -140,6 +152,8 @@ router.get('/select/:eventId', (req, res) => {
 
 // GET route push a single event to personal calendar
 router.get('/add/:calId/:eventId', (req, res) => {
+    console.log('going into a personal cal')
+    console.log('reqparams', req.params)
     const {eventId} = req.params
     const {calId} = req.params
     
@@ -150,7 +164,7 @@ router.get('/add/:calId/:eventId', (req, res) => {
             //Since we want a copy of the event, until I figure out how to do it....
             // I am assigning manually every field of the event to a new object
             console.log('existing event', event)
-            const newEvent = {
+            const newEventData = {
                 title: event.title, 
                 date: event.date, 
                 hdate: event.hdate, 
@@ -163,13 +177,15 @@ router.get('/add/:calId/:eventId', (req, res) => {
                 calId: calId // I am tagging the new event with the calendar ID of the calendar they will belong to
             }
             //delete newEvent._id
-            console.log('im the new event', newEvent)
+            console.log('im the new event', newEventData)
             // I use this object to create a new event. Identical to the original, but with a different _id
-            Event.create(newEvent)
+            Event.create(newEventData)
                 .then(newEvent => {
+                    console.log('I am the new event after doc creation', newEvent)
                      // we then bring up the calendar we want to add the event to
-                    PersonalCal.findByIdAndUpdate(calId)
+                    PersonalCal.findById(calId)
                         .then(cal => {
+                        console.log('calenda')
                         //we push the event to the calendara events field's array.
                         cal.events.push(newEvent)
                         //save the document
@@ -193,6 +209,7 @@ router.get('/:calId', (req, res) => {
         .then(cal => { 
             //isolate the events array
             data = cal.events
+            console.log('I am the array', data)
             // render the index page, using the events array to supply the data
             res.render('personal/personalIndex', {data, cal, calId, userInfo})
         })

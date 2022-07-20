@@ -8,7 +8,7 @@
     </div>
     <ul class="list-group">
         {% for data in data %}
-        <li class="list-group-item">{{data.date}}</li>
+        <li class="list-group-item">{{data.date | date: "%m-%d-%y"}}</li>
         <li class="list-group-item"><a href="/personal/show/{{data._id}}/{{cal._id}}">{{data.title}}</a></li>
         {% endfor %}
     </ul>
