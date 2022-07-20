@@ -34,7 +34,7 @@ app.use(
 	session({
 		secret: process.env.SECRET,
 		store: MongoStore.create({
-			mongoUrl: process.env.DATABASE_URI
+			mongoUrl: process.env.MONGODB_URI
 		}),
 		saveUninitialized: true,
 		resave: false
@@ -54,6 +54,6 @@ app.get('/', (req, res) => {
 
 //port set up
 const PORT = process.env.PORT
-app.listen(PORT, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log(`app listening on port ${PORT}`)
 })
