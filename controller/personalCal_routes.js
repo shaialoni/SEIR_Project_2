@@ -13,7 +13,7 @@ const router = express.Router()
 const Event = require('../models/event')
 const PersonalCal = require('../models/personalCal')
 
-//DESTROY route 
+//DESTROY route - Delete a personal calendar
 router.delete('/:calId', (req, res) => {
     const {calId} = req.params 
     const userInfo = req.session.username
@@ -47,7 +47,6 @@ router.get('/:calId/:eventId/edit', (req, res) => {
 })
 
 //PUT update route - update the edited calendar entry
-//test code
 router.put('/:calId/:eventId', (req, res)=> {
     const {calId} = req.params
     const {eventId} = req.params
@@ -55,20 +54,6 @@ router.put('/:calId/:eventId', (req, res)=> {
     console.log('reqbody', req.body)
     req.body.yomtov = req.body.yomtov === 'on' ? true:false
     Event.findByIdAndUpdate(eventId, req.body, {new: true})
-        // .then(event => {
-        //     //console.log('pre edited event', event)
-        //     // event.title = req.body.title 
-        //     // event.date = req.body.date
-        //     // event.hdate = req.body.hdate 
-        //     // event.category = req.body.category
-        //     // event.hebrew = req.body.hebrew
-        //     // event.memo = req.body.memo 
-        //     // event.yomtov = req.body.yomtov 
-        //     // event.calId = calId
-        //     console.log('post find and update event', event)
-        //     // save the edited document
-        //     return event.save()
-        // })
         .then(event => {   
             console.log('post find and update event', event) 
             res.redirect(`/personal/${calId}`)       
@@ -76,7 +61,7 @@ router.put('/:calId/:eventId', (req, res)=> {
         .catch(err => console.log(err))
 })
         
-//GET Route - display a new evntry form
+//GET Route - display a new entry form
 router.get('/newEvent/:calId', (req, res) => {
     const {calId} = req.params
     const userInfo = req.session.username
@@ -84,7 +69,6 @@ router.get('/newEvent/:calId', (req, res) => {
 })
 
 //CREATE POST Route - post new event on personal calendar
-//Test code
 router.post('/newEvent/:calId', (req, res) => {
     const {calId} = req.params
     console.log('calid', calId)
@@ -92,7 +76,7 @@ router.post('/newEvent/:calId', (req, res) => {
         .then(cal => {
             console.log('cal', cal)
             console.log('reqbody', req.body)
-            //we push the event to the calendara events field's array.
+            //we push the event's ID to the calendars events field's array.
             Event.create(req.body)
                 .then(event => {
                     console.log('new event', event)
@@ -106,7 +90,7 @@ router.post('/newEvent/:calId', (req, res) => {
         .catch(err => console.log(err))
 })
 
-//Main Personal Calendar page route
+//Main Personal Calendar index page route
 router.get('/list', (req, res) => {  
     const userInfo = req.session.username
     PersonalCal.find({})
@@ -124,8 +108,8 @@ router.get('/new', (req, res) => {
 })
 //POST route - create a new calendar
 router.post('/new', (req, res) => {
-    console.log('this route')
-    console.log('loggedin', req.session)
+    //console.log('this route')
+    //console.log('loggedin', req.session)
     // make sure a user is logged in before creating a calendar
     if (req.session.loggedIn === true) {
         req.body.owner = req.session.userId
