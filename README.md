@@ -3,8 +3,11 @@ The app has a list of events from the jewish calendar (currently all events for 
 You have access to view all data without logging in, however, if you sign up, it opens access to create personal calendars, where you can save events from the main event list, or create and edit personal events.
 
 # Tech used
-The app was created using HTML, CSS, Liquid express views, node.js, JavaScript, mongoDB, Mongoose ODM. 
+The app was created using HTML, CSS, Express, Liquid templating language node.js, JavaScript, mongoDB, Mongoose ODM. 
 The app is deployed using the mongoDB Atlas cloud tool, and hosted with Heroku.
+
+# Add info about API (call, link)
+# Installation instructions - include npm install, .env file
 
 # link to live site on Heroku:
 
@@ -14,9 +17,9 @@ https://seir-6-6-project-2-calendar.herokuapp.com/cal/
 
 ![](Planing/route_table_new.png)
 
-# -----------------------------------------------------------------------------------------------------#
 
-# PLANING
+
+# PLANNING
 
 
 # Hebrew Calendar App
@@ -82,22 +85,23 @@ Schemas
 
 
 Route table:
-Name:    |Path:                      |HTTP Verb |Purpose
-Index    |/event                     |GET       |Display all info from API
-Show     |/event/:id                 |GET       |Display single item from API
-Index    |/cal/list                  |GET       |Display list of all personal calendars (for user)
-New      |/cal/new                   |GET       |Display new calendar creation form
-Create   |/cal/new                   |POST      |Create the new calendar in the DB
-Create   |/cal/add/:calId/:eventId   |GET       |Add an existing event to a personal calendar
-Show     |/cal/select/:eventId       |GET       |Display a list of calendars to save an event to from main index
-Show     |/cal/:calId                |GET       |Show page for personal cal - index of events saved on it
-Show     |/cal/show/:eventId/:calId  |GET       |Display single event from personal calendar   
-New      |/cal/newEvent/:calId       |GET       |Displays a form to add a new entry
-Create   |/cal/newEvent/:calId       |POST      |Create the new entry in the DB
-Edit     |/cal/:calId/:eventId/edit  |GET       |Show edit item form
-Update   |/cal/:calId/:eventId       |PUT       |Update a single item
-Destroy  |/cal/show/:calId/eventId   |DELETE    |Delete single saved item
-Destroy  |/cal/:calId                |DELETE    |Delete a personal calendar
+|Name:    |Path:|HTTP Verb|Purpose|
+|:---|:---|:---|:---|
+|Index|/event|GET|Display all info from API|
+|Show|/event/:id|GET|Display single item from API|
+|Index|/cal/list|GET|Display list of all personal calendars (for user)|
+|New|/cal/new|GET|Display new calendar creation form|
+|Create|/cal/new|POST|Create the new calendar in the DB|
+|Create|/cal/add/:calId/:eventId|GET|Add an existing event to a personal calendar|
+|Show|/cal/select/:eventId|GET|Display a list of calendars to save an event to from main index|
+|Show|/cal/:calId|GET|Show page for personal cal - index of events saved on it|
+|Show|/cal/show/:eventId/:calId|GET|Display single event from personal calendar|
+|New|/cal/newEvent/:calId|GET|Displays a form to add a new entry|
+|Create|/cal/newEvent/:calId|POST|Create the new entry in the DB|
+|Edit|/cal/:calId/:eventId/edit|GET|Show edit item form|
+|Update|/cal/:calId/:eventId|PUT|Update a single item|
+|Destroy|/cal/show/:calId/eventId|DELETE|Delete single saved item|
+|Destroy|/cal/:calId|DELETE|Delete a personal calendar|
 
 
 
