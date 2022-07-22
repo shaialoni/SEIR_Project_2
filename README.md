@@ -3,27 +3,56 @@ The app has a list of events from the jewish calendar (currently all events for 
 You have access to view all data without logging in, however, if you sign up, it opens access to create personal calendars, where you can save events from the main event list, or create and edit personal events.
 
 # Tech used
-The app was created using HTML, CSS, Express, Liquid templating language node.js, JavaScript, mongoDB, Mongoose ODM. 
+The app was created using HTML, CSS, Express, Liquid templating language, node.js, JavaScript, mongoDB, Mongoose ODM. 
 The app is deployed using the mongoDB Atlas cloud tool, and hosted with Heroku.
 
-# Add info about API (call, link)
-# Installation instructions - include npm install, .env file
+# API info
+I used heb cal API for this app. You can find more information online at https://www.hebcal.com/home/developer-apis
 
-# link to live site on Heroku:
+# Installation instructions - 
+
+To switch the app from local to online mode, you will need to adjust the connection.js file and server.js file.
+You will need to create an .env file, make sure you have a SECRET=XXX, APIURL=(API url call), DATABASE_URI=(local network address for database) or MONGODB_URI=(mongodb cloud path) and PORT=(port number)
+
+You will need to run in your terminal: 
+```console
+$ npm install
+```
+
+# Link to live site on Heroku:
 
 https://seir-6-6-project-2-calendar.herokuapp.com/cal/
 
 # Route Table
 
-![](Planing/route_table_new.png)
+|Name:|Path:|HTTP Verb|Purpose|
+|:---|:---|:---|:---|
+|Index|/event|GET|Display all info from API|
+|Show|/event/:id|GET|Display single item from API|
+|Index|/cal/list|GET|Display list of all personal calendars (for user)|
+|New|/cal/new|GET|Display new calendar creation form|
+|Create|/cal/new|POST|Create the new calendar in the DB|
+|Create|/cal/add/:calId/:eventId|GET|Add an existing event to a personal calendar|
+|Show|/cal/select/:eventId|GET|Display a list of calendars to save an event to from main index|
+|Show|/cal/:calId|GET|Show page for personal cal - index of events saved on it|
+|Show|/cal/show/:eventId/:calId|GET|Display single event from personal calendar|
+|New|/cal/newEvent/:calId|GET|Displays a form to add a new entry|
+|Create|/cal/newEvent/:calId|POST|Create the new entry in the DB|
+|Edit|/cal/:calId/:eventId/edit|GET|Show edit item form|
+|Update|/cal/:calId/:eventId|PUT|Update a single item|
+|Destroy|/cal/show/:calId/eventId|DELETE|Delete single saved item|
+|Destroy|/cal/:calId|DELETE|Delete a personal calendar|
+
+# Entity Relationship Diagram (ERD):
+![](Planning/ERD.png)
+
+# Planning wire Frames:
+![](Planning/wire%20frames.png)
 
 
+# PLANNING PROCESS - Hebrew Calendar App
 
-# PLANNING
-
-
-# Hebrew Calendar App
-User stories ('As a user...')
+# User stories ('As a user...')
 - View all calendar items from API - Index
   - import all calendar items to different schemas according to type
   - look for all calendar entries
@@ -53,7 +82,7 @@ User stories ('As a user...')
   - display confirmation
 
 
-Schemas
+# Schemas
 - Event entry
   - Category: string
   - title: String / time
@@ -69,48 +98,3 @@ Schemas
   - Description: string
   - Events: Array of strings by 
   - owner
-
-
-![](ERD.png)
-
-![](route_table_new.png)
-
-![](wire%20frames.png)
-
-
-
-
-
-
-
-
-Route table:
-|Name:    |Path:|HTTP Verb|Purpose|
-|:---|:---|:---|:---|
-|Index|/event|GET|Display all info from API|
-|Show|/event/:id|GET|Display single item from API|
-|Index|/cal/list|GET|Display list of all personal calendars (for user)|
-|New|/cal/new|GET|Display new calendar creation form|
-|Create|/cal/new|POST|Create the new calendar in the DB|
-|Create|/cal/add/:calId/:eventId|GET|Add an existing event to a personal calendar|
-|Show|/cal/select/:eventId|GET|Display a list of calendars to save an event to from main index|
-|Show|/cal/:calId|GET|Show page for personal cal - index of events saved on it|
-|Show|/cal/show/:eventId/:calId|GET|Display single event from personal calendar|
-|New|/cal/newEvent/:calId|GET|Displays a form to add a new entry|
-|Create|/cal/newEvent/:calId|POST|Create the new entry in the DB|
-|Edit|/cal/:calId/:eventId/edit|GET|Show edit item form|
-|Update|/cal/:calId/:eventId|PUT|Update a single item|
-|Destroy|/cal/show/:calId/eventId|DELETE|Delete single saved item|
-|Destroy|/cal/:calId|DELETE|Delete a personal calendar|
-
-
-
-
-
-
-
-
-
-
-
-
